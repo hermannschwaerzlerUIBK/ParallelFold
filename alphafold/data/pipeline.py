@@ -200,7 +200,7 @@ class DataPipeline:
             use_precomputed_msas=self.use_precomputed_msas,
             max_sto_sequences=self.mgnify_max_hits)
         mgnify_msa = parsers.parse_stockholm(jackhmmer_mgnify_result['sto'])
-        return mgnify_msa
+        return (mgnify_msa,)
 
     def process_bfd(self, input_fasta_path: str, msa_output_dir: str):
         if self._use_small_bfd:
@@ -222,7 +222,7 @@ class DataPipeline:
                 msa_format='a3m',
                 use_precomputed_msas=self.use_precomputed_msas)
             bfd_msa = parsers.parse_a3m(hhblits_bfd_uniref_result['a3m'])
-        return bfd_msa
+        return (bfd_msa,)
 
     def process(self, input_fasta_path: str, msa_output_dir: str) -> FeatureDict:
         """Runs alignment tools on the input sequence and creates features."""
@@ -241,11 +241,11 @@ class DataPipeline:
 
         process_results = list()
         process_pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
-        process_results.append(('uniref90', pool.apply_async(self.process_uniref90, (input_fasta_path, msa_output_dir,))))
-        process_results.append(('mgnify', pool.apply_async(self.process_mgnify, (input_fasta_path, msa_output_dir,))))
-        process_results.append(('bfd', pool.apply_async(self.process_bfd, (input_fasta_path, msa_output_dir,))))
-        pool.close()
-        pool.join()
+        process_results.append(('uniref90', process_pool.apply_async(self.process_uniref90, (input_fasta_path, msa_output_dir,))))
+        process_results.append(('mgnify', process_pool.apply_async(self.process_mgnify, (input_fasta_path, msa_output_dir,))))
+        process_results.append(('bfd', process_pool.apply_async(self.process_bfd, (input_fasta_path, msa_output_dir,))))
+        process_pool.close()
+        process_pool.join()
         for process_result in process_results:
             result_tag = process_result[0]
             if result_tag == 'uniref90':
