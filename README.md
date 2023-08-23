@@ -49,6 +49,9 @@ pip3 install --upgrade --no-cache-dir jax==0.3.25 jaxlib==0.3.25+cuda11.cudnn82 
 # install packages for multiple sequence alignment
 conda install -c bioconda hmmer=3.3.2 hhsuite=3.3.0 kalign2=2.04
 
+# install ptxas (WIP - updates some requirements)
+conda install -c nvidia cuda-nvcc
+
 chmod +x run_alphafold.sh
 ```
 
