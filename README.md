@@ -26,11 +26,13 @@ We recommend to install AlphaFold locally, and not using **docker**.
 
 ```bash
 # clone this repo
-git clone https://github.com/Zuricho/ParallelFold.git
+git clone https://github.com/hermannschwaerzlerUIBK/ParallelFold.git
+cd ParallelFold
 
 # Create a miniconda environment for ParaFold/AlphaFold
 # Recommend you to use python 3.8, version < 3.7 have missing packages, python versions newer than 3.8 were not tested
 conda create -n parafold python=3.8
+conda activate parafold
 
 pip install py3dmol
 # openmm 7.7 is recommended (original alphafold using 7.5.1, but it is not supported now)
@@ -49,8 +51,8 @@ pip3 install --upgrade --no-cache-dir jax==0.3.25 jaxlib==0.3.25+cuda11.cudnn82 
 # install packages for multiple sequence alignment
 conda install -c bioconda hmmer=3.3.2 hhsuite=3.3.0 kalign2=2.04
 
-# install ptxas (WIP - updates some requirements)
-conda install -c nvidia cuda-nvcc
+# install ptxas et al.
+conda install -c nvidia cuda-nvcc=3.11
 
 chmod +x run_alphafold.sh
 ```
