@@ -168,6 +168,7 @@ fi
 
 export TF_FORCE_UNIFIED_MEMORY='1'
 export XLA_PYTHON_CLIENT_MEM_FRACTION='4.0'
+export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
 
 # Path and user config (change me if required)
 parameter_path="$data_dir/params"
