@@ -52,7 +52,7 @@ pip3 install --upgrade --no-cache-dir jax==0.3.25 jaxlib==0.3.25+cuda11.cudnn82 
 conda install -c bioconda hmmer=3.3.2 hhsuite=3.3.0 kalign2=2.04
 
 # install ptxas et al.
-conda install -c nvidia cuda-nvcc=3.11
+conda install -c nvidia cuda-nvcc=11.3
 
 chmod +x run_alphafold.sh
 ```
